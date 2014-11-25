@@ -11,10 +11,12 @@ SELECT mnr, dvdnr, rueckgabe - datum FROM ausleihen;
 SELECT mnr, dvdnr, rueckgabe - datum FROM ausleihen WHERE rueckgabe IS NOT NULL
   UNION
   SELECT mnr, dvdnr, SYSDATE - datum FROM ausleihen WHERE rueckgabe IS NULL;
+  --or
+SELECT mnr, dvdnr, NVL(rueckgabe, ROUND(SYSDATE))-datum FROM ausleihen;
 -- e
 SELECT LOWER(SUBSTR(name,0,2)) FROM angestellte;
 -- f
-SELECT TO_CHAR(gdatum, 'YY') FROM mitglieder;
+SELECT DISTINCT TO_CHAR(gdatum, 'YY') FROM mitglieder;
 -- g
 SELECT 'SQL ist bis jetzt einfach :O' FROM registrierungen;
 SELECT DISTINCT 'SQL ist bis jetzt einfach :O' FROM registrierungen;
@@ -23,7 +25,7 @@ SELECT fnr || ';' || ort || ';' || plz FROM filialen;
 -- i
   -- nope
 -- j
-SELECT katalognr, titel, TO_CHAR(TO_DATE(MINDESTALTER, 'j'), 'jsp'), gebuehr FROM filme;
+SELECT katalognr, titel, TO_CHAR(TO_DATE(mindestalter, 'j'), 'jsp'), gebuehr FROM filme;
 -- k
 SELECT titel, ROWID FROM filme;
 SELECT titel, ROWNUM FROM filme;
